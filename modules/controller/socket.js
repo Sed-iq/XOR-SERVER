@@ -11,36 +11,16 @@ module.exports = (io) => {
         $engine: msg.engine,
         message: msg.message,
       };
-      // console.log(msg.sender);
-      chat(opt)
-        .then(async (data) => {
-          try {
-            const userSave = await saveChat(
-              {
-                sender: msg.sender,
-                message: msg.message,
-                time: msg.time,
-              },
-              msg.conversation
-            );
-            // if (userSave) {
-            // let response = {
-            //   sender: "bot", // Replace with ai name,
-            //   message: data.trim(),
-            //   time: new Date().toLocaleDateString(),
-            // }; // Ai response
-            // saveChat(response, msg.conversation);
-            // socket.emit("response", response);
-            // }
-          } catch (err) {
-            console.log(err);
-            socket.emit("error", "There seems to be an error");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          // socket.emit("error", "There seems to be an error");
+      console.log("wait1");
+      const response = await chat(opt);
+      console.log("wait");
+      if (response) {
+        socket.emit("response", {
+          message: response,
         });
+      } else {
+        console.log("empty");
+      }
     });
   });
 };
