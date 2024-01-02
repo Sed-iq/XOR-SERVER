@@ -35,10 +35,7 @@ const mongoose = require("mongoose"),
       type: String,
       required: true,
     },
-    method: {
-      type: String,
-      required: true,
-    },
+
     endpoint: { type: String, required: true },
     description: { type: String, required: true },
     users: { type: Array },

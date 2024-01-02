@@ -20,10 +20,10 @@
     let msg = document.querySelector("#message");
     send.addEventListener("click", (e) => {
       socket.emit("prompt", {
-        sender: "6515b31948199472e5954946",
-        conversation: "651d9535ef4a204aa30513c2",
+        sender: "64ac97dbf93e0d9df6f0b353",
+        conversation: "64ad34244420d02f69ebf156",
         message: msg.value,
-        engine: "Ai21",
+        engine: "Openchat",
         time: new Date().toLocaleDateString(),
       });
       socket.once("response", (msg) => {

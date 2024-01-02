@@ -1,10 +1,18 @@
 // Controls all socket connections
-const chat = require("./chat.js");
+const Conversation = require("./conversation.js");
+const { chat } = Conversation;
 const { conversation } = require("./../schema.js");
 module.exports = (io) => {
   io.on("connection", (socket) => {
     socket.on("prompt", async (msg) => {
-      chat(msg.sender, msg.conversation, msg.engine, msg.message)
+      const opt = {
+        userId: msg.sender,
+        conversationId: msg.conversation,
+        $engine: msg.engine,
+        message: msg.message,
+      };
+      // console.log(msg.sender);
+      chat(opt)
         .then(async (data) => {
           try {
             const userSave = await saveChat(
@@ -15,15 +23,15 @@ module.exports = (io) => {
               },
               msg.conversation
             );
-            if (userSave) {
-              let response = {
-                sender: "bot", // Replace with ai name,
-                message: data.message.trim(),
-                time: new Date().toLocaleDateString(),
-              }; // Ai response
-              saveChat(response, msg.conversation);
-              socket.emit("response", response);
-            }
+            // if (userSave) {
+            // let response = {
+            //   sender: "bot", // Replace with ai name,
+            //   message: data.trim(),
+            //   time: new Date().toLocaleDateString(),
+            // }; // Ai response
+            // saveChat(response, msg.conversation);
+            // socket.emit("response", response);
+            // }
           } catch (err) {
             console.log(err);
             socket.emit("error", "There seems to be an error");
@@ -31,7 +39,7 @@ module.exports = (io) => {
         })
         .catch((err) => {
           console.log(err);
-          socket.emit("error", "There seems to be an error");
+          // socket.emit("error", "There seems to be an error");
         });
     });
   });

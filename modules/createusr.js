@@ -4,12 +4,11 @@ async function CR() {
   const eng = [
     {
       name: "Perplexity Ai",
-      endpoint: "https://openrouter.ai/api/v1",
+      endpoint: "https://openrouter.ai/api/v1/chat/completions",
       description: `TODO: Add later`,
       users: [],
       model: "perplexity/pplx-70b-chat",
-      method: "openai",
-      key: "0d21384ac854855aaf7ced7b367c4b3f7ffa610ed7a23194f652b8a6595e4a4d",
+      key: "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",
     },
   ];
   Schema.engine
