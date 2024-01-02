@@ -7,6 +7,7 @@ async function CR() {
       endpoint: "https://openrouter.ai/api/v1",
       description: `TODO: Add later`,
       users: [],
+      model: "perplexity/pplx-70b-chat",
       method: "openai",
       key: "0d21384ac854855aaf7ced7b367c4b3f7ffa610ed7a23194f652b8a6595e4a4d",
     },

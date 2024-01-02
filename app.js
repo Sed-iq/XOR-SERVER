@@ -17,6 +17,6 @@ mongoose
       process.env.PORT,
       console.log(`Running on port: ${process.env.PORT}`)
     )
-  ) 
+  )
   .catch((e) => console.error(e));
 socket(io);
