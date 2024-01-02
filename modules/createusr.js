@@ -3,11 +3,12 @@ const Schema = require("./schema");
 async function CR() {
   const eng = [
     {
-      name: "DeepAi",
-      endpoint: "https://api.deepai.org/api/text-generator",
-      description: ``,
+      name: "Perplexity Ai",
+      endpoint: "https://openrouter.ai/api/v1",
+      description: `TODO: Add later`,
       users: [],
-      key: "api-key:7c8fd0ea-d2e1-4577-80c5-cfed1176d3a4",
+      method: "openai",
+      key: "0d21384ac854855aaf7ced7b367c4b3f7ffa610ed7a23194f652b8a6595e4a4d",
     },
   ];
   Schema.engine

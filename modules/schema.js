@@ -42,6 +42,10 @@ const mongoose = require("mongoose"),
     endpoint: { type: String, required: true },
     description: { type: String, required: true },
     users: { type: Array },
+    model: {
+      type: String,
+      required: true,
+    },
     image: { type: String },
     public_key: { type: String },
   });
