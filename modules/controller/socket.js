@@ -7,19 +7,32 @@ module.exports = (io) => {
     socket.on("prompt", async (msg) => {
       const opt = {
         userId: msg.sender,
+        type: msg.type,
         conversationId: msg.conversation,
-        $engine: msg.engine,
         message: msg.message,
       };
       console.log("wait1");
       const response = await chat(opt);
-      console.log("wait");
-      if (response) {
+       
+      console.log("done");
+      if (response) { 
         socket.emit("response", {
           message: response,
         });
+        await saveChat({
+          sender: msg.sender,
+          time: new Date(),
+          message: msg.message,
+        }, msg.conversation)
+      await saveChat({
+        sender: "bot",
+        time: new Date(),
+        message: response,
+      }, msg.conversation)
       } else {
-        console.log("empty");
+        socket.emit("error", {
+          message: "There was an error"
+        })
       }
     });
   });
