@@ -1,12 +1,14 @@
 const errorHandle = require("./partials/errorHandle");
 const bcrypt = require("./controller/bcrypt");
 const jwt = require("./controller/jwt");
-const { user } = require("./schema");
+const { user } = require("./schema.js");
 module.exports.signin = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (email && password) {
-      const usr = await user.findOne({ email: req.body.email });
+      const usr = await user.findOne({
+        email: req.body.email,
+      });
       if (usr) {
         bcrypt
           .compare(password, usr.password)
@@ -15,7 +17,10 @@ module.exports.signin = async (req, res) => {
               jwt
                 .sign(usr._id)
                 .then((token) => {
-                  res.json({ message: "Logged in ", token });
+                  res.json({
+                    message: "Logged in ",
+                    token,
+                  });
                 })
                 .catch((e) => {
                   console.log(e);
@@ -23,7 +28,10 @@ module.exports.signin = async (req, res) => {
                 });
             } else errorHandle("Wrong password", 404, res);
           })
-          .catch((err) => errorHandle("Wrong password", 401, res));
+          .catch((err) => {
+            console.log(err);
+            errorHandle("Wrong password", 401, res);
+          });
       } else errorHandle("User not found", 404, res);
     } else errorHandle("Please input email and password", 401, res);
   } catch (e) {
@@ -38,8 +46,7 @@ module.exports.verify = async (req, res, go) => {
   if (
     req.url == "/dashboard" ||
     req.url == "/conversation" ||
-    req.url == `/chat/${id}` ||
-    req.url == "/engines"
+    req.url == `/chat/${id}`
   ) {
     // Accepted log in routes
     if (user_data) {
@@ -54,6 +61,7 @@ module.exports.verify = async (req, res, go) => {
               go();
             } else throw false;
           } catch (e) {
+            console.log(e);
             errorHandle(
               "You need to be logged in to perform this action",
               401,
@@ -62,6 +70,7 @@ module.exports.verify = async (req, res, go) => {
           }
         })
         .catch((e) => {
+          console.log(e);
           errorHandle(
             "You need to be logged in to perform this action",
             401,
@@ -77,7 +86,9 @@ module.exports.verify = async (req, res, go) => {
       jwt
         .decode(user_data)
         .then((payload) => {
-          res.json({ message: "You are already logged in" });
+          res.json({
+            message: "You are already logged in ",
+          });
           // User is already logged in
         })
         .catch((e) => go());
@@ -93,7 +104,9 @@ module.exports.signup = async (req, res) => {
   else {
     try {
       // Fields are inputted correctly
-      const $ = await user.findOne({ email });
+      const $ = await user.findOne({
+        email,
+      });
       if ($) {
         errorHandle(
           "User with this email already exists, please use another one",
@@ -111,7 +124,10 @@ module.exports.signup = async (req, res) => {
           if (data) {
             // Logging them in
             const token = await jwt.sign(data._id);
-            res.json({ message: "Signed up successfully!", token });
+            res.json({
+              message: "Signed up successfully!",
+              token,
+            });
           }
         });
       }

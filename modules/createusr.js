@@ -1,15 +1,15 @@
-const Schema = require("./schema");
+const Schema = require("./schema.js");
 
 async function CR() {
   const eng = [
     {
-      name: "Perplexity Ai",
-      endpoint: "https://openrouter.ai/api/v1/chat/completions",
+      name: "Stable Diffusion",
+      endpoint: "https://api.stability.ai",
       description: `TODO: Add later`,
       users: [],
-      type:"text",
-      model: "perplexity/pplx-70b-chat",
-      key: "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",
+      type: "image",
+      model: "stable-diffusion-v1-6",
+      key: "sk-LYTJu3AHFW9CZRwE7Sqm3d4NnnaowQz9QLIcj0pAjvnP81Ud",
     },
   ];
   Schema.engine

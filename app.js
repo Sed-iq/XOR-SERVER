@@ -20,4 +20,3 @@ mongoose
   )
   .catch((e) => console.error(e));
 socket(io);
-// CR();
