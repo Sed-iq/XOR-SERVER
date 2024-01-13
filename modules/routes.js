@@ -1,9 +1,8 @@
 const dashboard = require("./controller/dashboard");
 const { create, chat } = require("./controller/conversation");
-(express = require("express")),
-  (app = express()),
-  ({ signin, signup, verify, logout } = require("./auth")),
-  (maxAge = 200 * 5 * 30 * 2 * 30 * 2 * 5 * 10);
+(express = require("express")), (app = express());
+const { signin, signup, verify, logout, ai_ver } = require("./auth");
+maxAge = 200 * 5 * 30 * 2 * 30 * 2 * 5 * 10;
 app.use(
   express.urlencoded({
     extended: true,
@@ -11,6 +10,7 @@ app.use(
 );
 app.use(express.json());
 app.get("/dashboard", verify, dashboard);
+app.post("/ai", ai_ver, chat);
 app.get("/chat/:id", verify, dashboard.chats);
 app.post("/signin", verify, signin);
 app.post("/conversation", verify, create);

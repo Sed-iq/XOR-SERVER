@@ -39,7 +39,41 @@ module.exports.signin = async (req, res) => {
     errorHandle("Error signing in please try again", 404, res);
   }
 };
-
+module.exports.ai_ver = async (req, res, go) => {
+  const user_data = req.headers["x-token"]; // Takes token data
+  if (user_data) {
+    jwt
+      .decode(user_data)
+      .then(async (payload) => {
+        try {
+          const $user = await user.findById(payload.id);
+          if ($user) {
+            // Decodes user information and puts it in the header
+            req.user = payload.id;
+            go();
+          } else throw false;
+        } catch (e) {
+          console.log(e);
+          errorHandle(
+            "You need to be logged in to perform this action",
+            401,
+            res
+          );
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        errorHandle(
+          "You need to be logged in to perform this action",
+          401,
+          res
+        );
+      });
+  } else {
+    console.log(user_data);
+    errorHandle("You need to be logged in to perform this action", 401, res);
+  }
+};
 module.exports.verify = async (req, res, go) => {
   const user_data = req.headers["x-token"]; // Takes token data
   const { id } = req.params;
