@@ -19,4 +19,4 @@ mongoose
     )
   )
   .catch((e) => console.error(e));
-socket(io);
+//socket(io);
