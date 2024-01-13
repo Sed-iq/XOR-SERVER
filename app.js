@@ -1,4 +1,3 @@
-const socket = require("./modules/controller/socket");
 const CR = require("./modules/createusr");
 
 const express = require("express"),
@@ -7,8 +6,7 @@ const express = require("express"),
   dotenv = require("dotenv").config(),
   router = require("./modules/routes"),
   http = require("http"),
-  server = http.createServer(app),
-  io = require("socket.io")(server);
+  server = http.createServer(app);
 app.use(router);
 mongoose
   .connect(process.env.DB)
