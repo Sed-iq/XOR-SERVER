@@ -9,6 +9,7 @@ const express = require("express"),
   server = http.createServer(app);
 app.use(router);
 mongoose
+
   .connect(process.env.DB)
   .then(() =>
     server.listen(
