@@ -169,6 +169,7 @@ async function Text({
         .post(Engine.endpoint, requestOptions)
         .then((response) => {
           const data = JSON.parse(response);
+          // console.log(data)
           resolve(data.choices[0].message.content);
         })
         .catch((error) => {
@@ -177,7 +178,7 @@ async function Text({
         });
     } else {
       console.log(` ${User} \n ${Conversation} \n ${Engine}`);
-      reject("Either user conversationid or Engine is missing");
+      reject("Either user conversation id or Engine is missing");
     }
   });
 }
